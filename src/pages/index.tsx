@@ -179,6 +179,7 @@ const Index = () => {
         </a>{' '}
         on our website to support this project.
       </p>
+      <button onClick={() => router.back()}>Back</button>
     </Main>
   );
 };
