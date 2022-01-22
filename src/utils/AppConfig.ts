@@ -1,6 +1,6 @@
 export const AppConfig = {
-  site_name: 'Starter',
-  title: 'Nextjs Starter',
-  description: 'Starter code for your Nextjs Boilerplate with Tailwind CSS',
+  site_name: 'CoinMarketFi',
+  title: 'Future of Finance in crypto world',
+  description: 'Future of Finance in crypto world',
   locale: 'en',
 };
