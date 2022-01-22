@@ -21,7 +21,6 @@ export async function getServerSideProps() {
   const res = await graphql(query);
   const data = await res.json();
   // Pass data to the page via props
-  console.log(data);
   return { props: data };
 }
 
@@ -55,7 +54,6 @@ function nomalize(def: Array<any>): Array<TableDef> {
       const k: string = e.data;
       e.data = (row: { [index: string]: any }) => row[k] ?? '-';
     }
-    console.log(output);
     return { ...{ data: '', text: '', thClass: '', tdClass: '' }, ...output };
   });
 }
