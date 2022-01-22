@@ -97,7 +97,14 @@ const tabDef = nomalize([
 
 const Exchanges = (values: { data: { exchanges: [ExchangeData] } }) => {
   return (
-    <Main meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>
+    <Main
+      meta={
+        <Meta
+          title="CoinMarketFi - Future of Defi in your hands"
+          description="Exchanges reviews and Defi stats for a profitable ✔ Crypto Trading!"
+        />
+      }
+    >
       <div>
         <h1 className="font-bold text-2xl">
           {i18('ExchangeListTitle', 'Cryptocurrency Exchange List')}
