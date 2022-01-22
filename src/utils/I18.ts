@@ -1,24 +1,25 @@
-import { useRouter } from 'next/router';
+// const cache: { string?: string } = {};
 
-const cache = {};
-
-function nomalize(local) {
-  switch (local) {
-    case 'jp-JP':
-    case 'jp':
-      return 'jp';
-    case 'vi-VN':
-    case 'vn':
-      return 'vn';
-  }
-  return 'en';
-}
+// function nomalize(local: string): string {
+//   switch (local) {
+//     case 'jp-JP':
+//     case 'jp':
+//       return 'jp';
+//     case 'vi-VN':
+//     case 'vn':
+//       return 'vn';
+//     default:
+//       return 'en';
+//   }
+// }
 
 export function i18(msg: string, defaultValue: string) {
-  let local = nomalize(useRouter().locale);
-  if (!cache[local]) {
-    cache[local] = require('../i18/' + local);
-  }
-  let trans = cache[local][msg];
-  return trans ?? defaultValue ?? msg;
+  // const local = nomalize(router().locale || 'en');
+  // if (!cache[local]) {
+  //   cache[local] = require(`../i18/${local}`);
+  // }
+  // const trans = cache[local][msg];
+  // return trans ?? defaultValue ?? msg;
+  // TODO: Fix this
+  return defaultValue || msg;
 }
