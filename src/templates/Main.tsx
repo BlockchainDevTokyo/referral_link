@@ -13,7 +13,7 @@ const Main = (props: IMainProps) => (
   <div className="antialiased w-full text-gray-700 px-1">
     {props.meta}
 
-    <div className="max-w-screen-md mx-auto">
+    <div className="max-w-screen-xl mx-auto">
       <div className="border-b border-gray-300">
         <div className="pt-16 pb-8">
           <div className="font-bold text-3xl text-gray-900">
@@ -31,11 +31,19 @@ const Main = (props: IMainProps) => (
               </Link>
             </li>
             <li className="mr-6">
-              <Link href="/about/">
+              <Link href="/exchanges/">
                 <a className="text-gray-700 border-none hover:text-gray-900">
-                  About
+                  Exchanges
                 </a>
               </Link>
+            </li>
+            <li className="mr-6">
+              <a
+                className="text-gray-700 border-none hover:text-gray-900"
+                href="/about/"
+              >
+                About
+              </a>
             </li>
             <li className="mr-6">
               <a
