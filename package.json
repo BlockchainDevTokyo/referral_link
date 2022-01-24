@@ -14,19 +14,25 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "big.js": "^6.1.1",
     "dotenv": "^14.2.0",
+    "near-api-js": "^0.44.2",
     "near-cli": "^3.1.0",
     "next": "^12.0.7",
     "next-seo": "^4.28.1",
     "node-fetch": "^3.1.0",
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "regenerator-runtime": "^0.13.9",
     "styled-jsx-plugin-postcss": "^4.0.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.0.7",
+    "@types/big.js": "^6.1.2",
     "@types/node": "^17.0.4",
     "@types/react": "^17.0.38",
+    "@types/regenerator-runtime": "^0.13.1",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
     "autoprefixer": "^10.4.0",
