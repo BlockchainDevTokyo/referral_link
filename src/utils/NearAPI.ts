@@ -76,6 +76,7 @@ export async function initContract() {
 
 export function signOut(wallet: any) {
   wallet.signOut();
+  window.location.replace(window.location.origin + window.location.pathname);
 }
 
 export function signIn(wallet: any, nearConfig: any) {
