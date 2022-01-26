@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 
-import Link from 'next/link';
-
 import { AppConfig } from '../utils/AppConfig';
+import Nav from './nav';
 
 type IMainProps = {
   meta: ReactNode;
@@ -21,56 +20,13 @@ const Main = (props: IMainProps) => (
           </div>
           <div className="text-xl">{AppConfig.description}</div>
         </div>
-        <div>
-          <ul className="flex flex-wrap text-xl">
-            <li className="mr-6">
-              <Link href="/">
-                <a className="text-gray-700 border-none hover:text-gray-900">
-                  Home
-                </a>
-              </Link>
-            </li>
-            <li className="mr-6">
-              <Link href="/exchanges/">
-                <a className="text-gray-700 border-none hover:text-gray-900">
-                  Exchanges
-                </a>
-              </Link>
-            </li>
-            <li className="mr-6">
-              <a
-                className="text-gray-700 border-none hover:text-gray-900"
-                href="/about/"
-              >
-                About
-              </a>
-            </li>
-            <li className="mr-6">
-              <a
-                className="text-gray-700 border-none hover:text-gray-900"
-                href="https://github.com/ixartz/Next-js-Boilerplate"
-              >
-                GitHub
-              </a>
-            </li>
-          </ul>
-        </div>
+        <div>{Nav()}</div>
       </div>
 
       <div className="py-5 text-xl content">{props.children}</div>
 
       <div className="border-t border-gray-300 text-center py-8 text-sm">
-        © Copyright {new Date().getFullYear()} {AppConfig.title}. Powered with{' '}
-        <span role="img" aria-label="Love">
-          ♥
-        </span>{' '}
-        by <a href="https://creativedesignsguru.com">CreativeDesignsGuru</a>
-        {/*
-         * PLEASE READ THIS SECTION
-         * We'll really appreciate if you could have a link to our website
-         * The link doesn't need to appear on every pages, one link on one page is enough.
-         * Thank you for your support it'll mean a lot for us.
-         */}
+        © 2022 CoinMarketFi. All rights reserved
       </div>
     </div>
   </div>
