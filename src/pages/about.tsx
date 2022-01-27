@@ -16,7 +16,7 @@ const About = () => {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [nearConfig, setNearConfig] = useState<any>(null);
   const [wallet, setWallet] = useState<any>(null);
-  const [balance, setBalance] = useState('');
+  const [balance, setBalance] = useState<any>(null);
   const [disabled, setDisabled] = useState(false);
   useEffect(() => {
     async function fetchData() {
@@ -25,9 +25,13 @@ const About = () => {
       setCurrentUser(data.currentUser);
       setNearConfig(data.nearConfig);
       setWallet(data.walletConnection);
-      const b = await getBalance(data.walletConnection);
-      setBalance(b);
-      setDisabled(false);
+      if (data.currentUser) {
+        const b = await getBalance(data.walletConnection);
+        setBalance(b);
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
     }
     fetchData();
   }, []);

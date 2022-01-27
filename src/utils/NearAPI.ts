@@ -12,28 +12,15 @@ const BOATLOAD_OF_GAS = Big(3)
 export async function initContract() {
   const nearConfig = getConfig(process.env.NODE_ENV);
 
-  // const keystore = new nearAPI.keyStores.InMemoryKeyStore();
-  // const keyPair = nearAPI.KeyPair.fromString(
-  //   process.env.NEXT_PUBLIC_SEND_PRIVATE_KEY || ''
-  // );
-  // keystore.setKey(nearConfig.networkId, nearConfig.contractName, keyPair);
-
-  // // Initializing connection to the NEAR TestNet
-  // const near = await nearAPI.connect({
-  //   keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore(),
-  //   ...nearConfig,
-  //   headers: {},
-  // });
-
-  const keystore = new nearAPI.keyStores.InMemoryKeyStore();
+  const keystore = new nearAPI.keyStores.BrowserLocalStorageKeyStore();
   const keyPair = nearAPI.KeyPair.fromString(
     process.env.NEXT_PUBLIC_SEND_PRIVATE_KEY || ''
   );
-  keystore.setKey(nearConfig.networkId, nearConfig.contractName, keyPair);
+  const keyStore = new nearAPI.keyStores.MergeKeyStore([keystore]);
+  keyStore.setKey(nearConfig.networkId, nearConfig.contractName, keyPair);
   // Initializing connection to the NEAR TestNet
   const near = await nearAPI.connect({
-    // keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore(),
-    keyStore: keystore,
+    keyStore,
     ...nearConfig,
     headers: {},
   });
@@ -45,7 +32,6 @@ export async function initContract() {
     near.connection,
     nearConfig.contractName
   );
-
   // Load in account data
   let currentUser;
   if (walletConnection.getAccountId()) {
@@ -80,7 +66,7 @@ export function signOut(wallet: any) {
 }
 
 export function signIn(wallet: any, nearConfig: any) {
-  wallet.requestSignIn(nearConfig.contractName, 'Coinmarketfi Dapp');
+  wallet.requestSignIn(nearConfig.contractName, ['click_link', 'get_link']);
 }
 
 export async function referLink(
