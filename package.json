@@ -14,11 +14,13 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@apollo/client": "^3.5.8",
     "big.js": "^6.1.1",
-    "dotenv": "^14.2.0",
+    "consola": "^2.15.3",
     "near-api-js": "^0.44.2",
     "near-cli": "^3.1.0",
     "next": "^12.0.7",
+    "next-i18next": "^10.2.0",
     "next-seo": "^4.28.1",
     "node-fetch": "^3.1.0",
     "prop-types": "^15.8.1",

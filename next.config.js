@@ -2,6 +2,7 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+const { i18n } = require('./next-i18next.config');
 
 module.exports = withBundleAnalyzer({
   poweredByHeader: false,
@@ -12,13 +13,5 @@ module.exports = withBundleAnalyzer({
   // You can remove `basePath` if you don't need it.
   reactStrictMode: true,
 
-  i18n: {
-    // These are all the locales you want to support in
-    // your application
-    locales: ['en-US', 'jp', 'jp-JP', 'vn', 'vi-VN'],
-    // This is the default locale you want to be used when visiting
-    // a non-locale prefixed path e.g. `/hello`
-    defaultLocale: 'en-US',
-  },
-
+  i18n,
 });
