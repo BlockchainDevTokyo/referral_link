@@ -1,18 +1,14 @@
+import React, { useState, useEffect } from 'react';
 import { Main } from '../templates/Main';
 import { graphql } from '../utils/Graphql';
 import { i18 } from '../utils/I18';
 import { RemoteDataTable } from '../templates/RemoteDataTable';
 
 const sql = `
-query ($sortBy: ExchangeSortByInput) {
-  exchanges(sortBy: $sortBy) {
+query ($sortBy: CryptocurrencySortByInput) {
+  cryptocurrencies(sortBy: $sortBy) {
     id
     name
-    trade_volume_24h_btc_normalized
-    centralized
-    country
-    image
-    url
   }
 }
 `;
@@ -34,7 +30,7 @@ export async function getServerSideProps({ query }) {
   if (res.errors) {
     return { props: res };
   }
-  const arr = res.data.exchanges;
+  const arr = res.data.cryptocurrencies;
   // Pass data to the page via props
   return {
     props: {
@@ -44,6 +40,7 @@ export async function getServerSideProps({ query }) {
   };
 }
 
+
 const columns = [
   {
     name: i18('name', 'Name'),
@@ -52,46 +49,41 @@ const columns = [
     sortValue: 'name'
   },
   {
-    name: i18('counrty', 'Country'),
-    selector: row => row.country,
+    name: i18('id', 'id'),
+    selector: row => row.id,
     sortable: true,
-    sortValue: 'country'
-  },
-  {
-    name: i18('trade_volume_24h_btc_normalized', 'trade_volume_24h_btc_normalized'),
-    selector: row => row.trade_volume_24h_btc_normalized,
-    sortable: true,
-    sortValue: 'trade_volume_24h_btc_normalized'
+    sortValue: 'id'
   }
 ];
 
-const Exchanges = (res) => {
+const Cryptocurrencies = (res) => {
+  console.log('ma no', res);
+  const [loading, setLoading] = useState(false);
+  const startLoading = () => {
+    setLoading(true);
+  };
+  const stopLoading = () => {
+    setLoading(false);
+  };
+
   return (
     <Main>
       <div>
-        <h1 className='font-bold text-2xl'>
-          {i18('ExchangeListTitle', 'Cryptocurrency Exchange List')}
-        </h1>
-        <p>
-          {i18(
-            'ExchangeListExplanation',
-            `
-        Check out this Cryptocurrency Exchange List with more cryptocurrency
-        exchanges and brokers than any other list in the world, including
-        information on fees, deposit methods, supported cryptocurrencies and
-        much more.
-        `
-          )}
-        </p>
+        Cryptocurrencies page
       </div>
 
       <div className='flex flex-col'>
         <div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
           <div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
-            <div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
+            <div className='relative shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
+              <div className='bg-gray-50 w-full h-full z-40 absolute' hidden={!loading}>
+                <img className='w-40 h-20 mx-auto my-10' src='https://cutewallpaper.org/21/loading-animated-gif-transparent-background/Animated-Loading-Gif-Transparent-Background.gif'/>
+              </div>
               <RemoteDataTable
                 columns={columns}
                 rows={res}
+                startLoading={startLoading}
+                stopLoading={stopLoading}
               />
             </div>
           </div>
@@ -101,4 +93,4 @@ const Exchanges = (res) => {
   );
 };
 
-export default Exchanges;
+export default Cryptocurrencies;
