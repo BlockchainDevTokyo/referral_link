@@ -1,4 +1,6 @@
 import { useQuery } from '@apollo/client';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { EXCHANGES } from '../graphql/exchange';
 import { Meta } from '../layout/Meta';
@@ -28,6 +30,7 @@ const columns = [
 
 const Exchanges = () => {
   const { loading, error, data } = useQuery(EXCHANGES);
+  const { t } = useTranslation();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -41,7 +44,7 @@ const Exchanges = () => {
   // }
 
   return (
-    <Main meta={<Meta title="Exchange" description="Exchange" />}>
+    <Main meta={<Meta title={t('title')} description={t('description')} />}>
       <div>
         <h1 className="font-bold text-2xl">
           {'Cryptocurrency Exchange List'}
@@ -73,5 +76,11 @@ const Exchanges = () => {
     </Main>
   );
 };
+
+export const getStaticProps = async (data: any) => ({
+  props: {
+    ...(await serverSideTranslations(data.locale, ['exchanges', 'common'])),
+  },
+});
 
 export default Exchanges;
