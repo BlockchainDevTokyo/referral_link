@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
 import { Main } from '../templates/Main';
-import { graphql } from '../utils/Graphql';
-import { i18 } from '../utils/I18';
 import { RemoteDataTable } from '../templates/RemoteDataTable';
+import { graphql } from '../utils/Graphql';
+// import { i18 } from '../utils/I18';
 
 const sql = `
 query ($sortBy: CryptocurrencySortByInput) {
@@ -14,9 +15,9 @@ query ($sortBy: CryptocurrencySortByInput) {
 `;
 
 // This gets called on every request
-export async function getServerSideProps({ query }) {
-  const page = query.page;
-  const rowPerPage = query.rowPerPage;
+export async function getServerSideProps(query: any) {
+  const { page } = query;
+  const { rowPerPage } = query;
   const sortColumn = query.sortColumn || 'id';
   const sortDirection = query.sortDirection || 'ASC';
   if (!page) {
@@ -24,9 +25,9 @@ export async function getServerSideProps({ query }) {
   }
   // Fetch data from external API
   const req = await graphql(sql, {
-    sortBy: sortColumn.toUpperCase() + '_' + sortDirection.toUpperCase()
+    sortBy: `${sortColumn.toUpperCase()}_${sortDirection.toUpperCase()}`,
   });
-  const res = await req.json();
+  const res: any = await req.json();
   if (res.errors) {
     return { props: res };
   }
@@ -35,29 +36,29 @@ export async function getServerSideProps({ query }) {
   return {
     props: {
       total: arr.length,
-      data: arr.slice(rowPerPage * (page - 1), rowPerPage * page)
-    }
+      data: arr.slice(rowPerPage * (page - 1), rowPerPage * page),
+    },
   };
 }
 
-
 const columns = [
   {
-    name: i18('name', 'Name'),
-    selector: row => row.name,
+    // name: i18('name', 'Name'),
+    name: 'name',
+    selector: (row: any) => row.name,
     sortable: true,
-    sortValue: 'name'
+    sortValue: 'name',
   },
   {
-    name: i18('id', 'id'),
-    selector: row => row.id,
+    // name: i18('id', 'id'),
+    name: 'id',
+    selector: (row: any) => row.id,
     sortable: true,
-    sortValue: 'id'
-  }
+    sortValue: 'id',
+  },
 ];
 
-const Cryptocurrencies = (res) => {
-  console.log('ma no', res);
+const Cryptocurrencies = (res: any) => {
   const [loading, setLoading] = useState(false);
   const startLoading = () => {
     setLoading(true);
@@ -67,17 +68,22 @@ const Cryptocurrencies = (res) => {
   };
 
   return (
-    <Main>
-      <div>
-        Cryptocurrencies page
-      </div>
+    <Main meta="Cryptocurencies">
+      <div>Cryptocurrencies page</div>
 
-      <div className='flex flex-col'>
-        <div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
-          <div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
-            <div className='relative shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
-              <div className='bg-gray-50 w-full h-full z-40 absolute' hidden={!loading}>
-                <img className='w-40 h-20 mx-auto my-10' src='https://cutewallpaper.org/21/loading-animated-gif-transparent-background/Animated-Loading-Gif-Transparent-Background.gif'/>
+      <div className="flex flex-col">
+        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="relative shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <div
+                className="bg-gray-50 w-full h-full z-40 absolute"
+                hidden={!loading}
+              >
+                <img
+                  alt="loading"
+                  className="w-40 h-20 mx-auto my-10"
+                  src="https://cutewallpaper.org/21/loading-animated-gif-transparent-background/Animated-Loading-Gif-Transparent-Background.gif"
+                />
               </div>
               <RemoteDataTable
                 columns={columns}

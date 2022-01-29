@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
+
 import Router, { useRouter } from 'next/router';
 import DataTable from 'react-data-table-component';
 
+// interface RemoteDataTableData {
+//   column: TableColumn<any>;
+//   startLoading: boolean;
+//   stopLoading: boolean;
+// }
 
-const RemoteDataTable = (props) => {
-  console.log(props);
+const RemoteDataTable = (props: any) => {
+  // console.log(props);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const currentRowPerPage = router.query.rowPerPage || 5;
+  const currentRowPerPage: any = router.query.rowPerPage || 5;
 
   const startLoading = props.startLoading ?? (() => setLoading(true));
   const stopLoading = props.stopLoading ?? (() => setLoading(false));
@@ -20,38 +26,41 @@ const RemoteDataTable = (props) => {
       Router.events.off('routeChangeStart', startLoading);
       Router.events.off('routeChangeComplete', stopLoading);
     };
-  }, []);
+  });
 
-  const fetchData = pInfo => {
+  const fetchData = (pInfo: any) => {
     const path = router.pathname;
     const query = Object.assign(router.query, pInfo);
-    console.log('request ', query);
     router.replace({
       pathname: path,
-      query: query
+      query,
     });
   };
 
-  const handleSort = (column, direction) => {
-    fetchData({ sortDirection: direction, sortColumn: column.sortValue, page: 1 });
+  const handleSort = (column: any, direction: any) => {
+    fetchData({
+      sortDirection: direction,
+      sortColumn: column.sortValue,
+      page: 1,
+    });
   };
 
-  const handleRowsPerPageChange = (newRowPerPage, page) => {
-    fetchData({ page: page, rowPerPage: newRowPerPage });
+  const handleRowsPerPageChange = (newRowPerPage: any, page: any) => {
+    fetchData({ page, rowPerPage: newRowPerPage });
   };
 
-  const handlePageChange = page => {
-    fetchData({ page: page });
+  const handlePageChange = (page: any) => {
+    fetchData({ page });
   };
 
-  const [data, setData] = useState();
+  const [data, setData] = useState<any>();
   useEffect(() => {
     if (!router.query.page) {
       fetchData({ page: 1, rowPerPage: currentRowPerPage });
     } else {
-      setData(props.rows.data);
+      setData(props.rows);
     }
-  });
+  }, []);
 
   return (
     <DataTable

@@ -22,11 +22,14 @@ const Main = (props: IMainProps) => (
         </div>
         <div>{Nav()}</div>
       </div>
-
       <div className="py-5 text-xl content">{props.children}</div>
 
       <div className="border-t border-gray-300 text-center py-8 text-sm">
-        © 2022 CoinMarketFi. All rights reserved
+        © Copyright {new Date().getFullYear()} {AppConfig.title}. Powered with{' '}
+        <span role="img" aria-label="Love">
+          ♥
+        </span>{' '}
+        by <a href="https://coinmarketfi.com">BlockchainDevTokyo</a>
       </div>
     </div>
   </div>
