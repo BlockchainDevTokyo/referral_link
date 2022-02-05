@@ -12,6 +12,7 @@ export const getServerSideProps = async (context: any) => {
   const { rowPerPage } = context.query;
   const sortColumn = context.query.sortColumn || 'id';
   const sortDirection = context.query.sortDirection || 'ASC';
+
   if (!page) {
     return { props: { errors: 'INPUT_ERROR' } };
   }
@@ -21,7 +22,6 @@ export const getServerSideProps = async (context: any) => {
       sortBy: `${sortColumn.toUpperCase()}_${sortDirection.toUpperCase()}`,
     },
   });
-
   const arr = data.exchanges;
   // Pass data to the page via props
   return {
@@ -38,7 +38,6 @@ export const getServerSideProps = async (context: any) => {
 
 const Exchanges = (props: any) => {
   const { t } = useTranslation();
-
   const columns = [
     {
       name: t('Name'),
@@ -71,7 +70,11 @@ const Exchanges = (props: any) => {
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              <RemoteDataTable columns={columns} rows={props.data} />
+              <RemoteDataTable
+                columns={columns}
+                rows={props.data}
+                total={props.total}
+              />
             </div>
           </div>
         </div>
