@@ -6,7 +6,6 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 
 import 'regenerator-runtime/runtime';
-// import React, { useEffect, useState } from 'react';
 
 import { initContract, signIn, signOut } from '../utils/NearAPI';
 

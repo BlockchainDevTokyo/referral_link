@@ -1,5 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
-
 import Link from 'next/link';
 
 import { Meta } from '../layout/Meta';
@@ -34,6 +32,10 @@ const Index = () => {
                   including Bitcoin and Ethereum — no matter where you live in
                   the world! Learn from us as we walk you through some of the
                   topics that beginners will need to understand to get started.
+                  Check out this Cryptocurrency Exchange List with more
+                  cryptocurrency exchanges and brokers than any other list in
+                  the world, including information on fees, deposit methods,
+                  supported cryptocurrencies and much more.
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">

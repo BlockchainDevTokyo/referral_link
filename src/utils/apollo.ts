@@ -99,6 +99,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 export const apolloClient = new ApolloClient({
+  ssrMode: true,
   link: ApolloLink.from([authMiddleware, errorLink, httpLink]),
   cache: new InMemoryCache({
     typePolicies: {
