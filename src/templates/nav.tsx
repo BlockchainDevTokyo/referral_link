@@ -1,9 +1,14 @@
 // import { i18 } from '../utils/I18';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
+
+import 'regenerator-runtime/runtime';
+// import React, { useEffect, useState } from 'react';
+
+import { initContract, signIn, signOut } from '../utils/NearAPI';
 
 const navigation = [
   { name: 'Cryptocurrencies', href: '/cryptocurrencies' },
@@ -13,6 +18,26 @@ const navigation = [
 ];
 
 export default function Nav() {
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [wallet, setWallet] = useState<any>(null);
+  const [nearConfig, setNearConfig] = useState<any>(null);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await initContract();
+      // setContract(data.contract);
+      setCurrentUser(data.currentUser);
+      setNearConfig(data.nearConfig);
+      setWallet(data.walletConnection);
+      // if (data.currentUser) {
+      //   const b = await getBalance(data.walletConnection);
+      //   setBalance(b);
+      //   setDisabled(false);
+      // } else {
+      //   setDisabled(true);
+      // }
+    }
+    fetchData();
+  }, []);
   return (
     <Popover>
       <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
@@ -50,12 +75,18 @@ export default function Nav() {
                 {item.name}
               </a>
             ))}
-            <a
-              href="#"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              Log in
-            </a>
+          </div>
+          <div
+            id="connect-wallet"
+            className="font-medium text-indigo-600 hover:text-indigo-500 text-left"
+          >
+            {currentUser ? (
+              <button onClick={() => signOut(wallet)}>Disconnect</button>
+            ) : (
+              <button onClick={() => signIn(wallet, nearConfig)}>
+                Connect Wallet
+              </button>
+            )}
           </div>
         </nav>
       </div>
