@@ -1,64 +1,45 @@
 import React, { useState } from 'react';
 
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+import { CRYPTOCURRENCY } from '../graphql/cryptocurrency';
 import { Main } from '../templates/Main';
 import { RemoteDataTable } from '../templates/RemoteDataTable';
-import { graphql } from '../utils/Graphql';
-// import { i18 } from '../utils/I18';
-
-const sql = `
-query ($sortBy: CryptocurrencySortByInput) {
-  cryptocurrencies(sortBy: $sortBy) {
-    id
-    name
-  }
-}
-`;
+import { apolloClient } from '../utils/apollo';
 
 // This gets called on every request
-export async function getServerSideProps(query: any) {
-  const { page } = query;
-  const { rowPerPage } = query;
-  const sortColumn = query.sortColumn || 'id';
-  const sortDirection = query.sortDirection || 'ASC';
+export async function getServerSideProps(context: any) {
+  const { page } = context.query;
+  const { rowPerPage } = context.query;
+  const sortColumn = context.query.sortColumn || 'id';
+  const sortDirection = context.query.sortDirection || 'ASC';
   if (!page) {
     return { props: { errors: 'INPUT_ERROR' } };
   }
-  // Fetch data from external API
-  const req = await graphql(sql, {
-    sortBy: `${sortColumn.toUpperCase()}_${sortDirection.toUpperCase()}`,
+  const { data } = await apolloClient.query({
+    query: CRYPTOCURRENCY,
+    variables: {
+      sortBy: `${sortColumn.toUpperCase()}_${sortDirection.toUpperCase()}`,
+    },
   });
-  const res: any = await req.json();
-  if (res.errors) {
-    return { props: res };
-  }
-  const arr = res.data.cryptocurrencies;
+  const arr = data.cryptocurrencies;
   // Pass data to the page via props
   return {
     props: {
       total: arr.length,
       data: arr.slice(rowPerPage * (page - 1), rowPerPage * page),
+      ...(await serverSideTranslations(context.locale, [
+        'exchanges',
+        'common',
+      ])),
     },
   };
 }
 
-const columns = [
-  {
-    // name: i18('name', 'Name'),
-    name: 'name',
-    selector: (row: any) => row.name,
-    sortable: true,
-    sortValue: 'name',
-  },
-  {
-    // name: i18('id', 'id'),
-    name: 'id',
-    selector: (row: any) => row.id,
-    sortable: true,
-    sortValue: 'id',
-  },
-];
+const Cryptocurrencies = (props: any) => {
+  const { t } = useTranslation();
 
-const Cryptocurrencies = (res: any) => {
   const [loading, setLoading] = useState(false);
   const startLoading = () => {
     setLoading(true);
@@ -66,6 +47,21 @@ const Cryptocurrencies = (res: any) => {
   const stopLoading = () => {
     setLoading(false);
   };
+
+  const columns = [
+    {
+      name: t('name'),
+      selector: (row: any) => row.name,
+      sortable: true,
+      sortValue: 'name',
+    },
+    {
+      name: t('id'),
+      selector: (row: any) => row.id,
+      sortable: true,
+      sortValue: 'id',
+    },
+  ];
 
   return (
     <Main meta="Cryptocurencies">
@@ -87,7 +83,8 @@ const Cryptocurrencies = (res: any) => {
               </div>
               <RemoteDataTable
                 columns={columns}
-                rows={res}
+                rows={props.data}
+                total={props.total}
                 startLoading={startLoading}
                 stopLoading={stopLoading}
               />
