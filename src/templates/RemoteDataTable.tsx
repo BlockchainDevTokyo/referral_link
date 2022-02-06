@@ -6,20 +6,10 @@ import DataTable from 'react-data-table-component';
 const RemoteDataTable = (props: any) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const currentRowPerPage: any = router.query.rowPerPage || 5;
+  const currentRowPerPage: any = router.query.rowPerPage || 15;
 
   const startLoading = props.startLoading ?? (() => setLoading(true));
   const stopLoading = props.stopLoading ?? (() => setLoading(false));
-
-  useEffect(() => {
-    // Router event handler
-    Router.events.on('routeChangeStart', startLoading);
-    Router.events.on('routeChangeComplete', stopLoading);
-    return () => {
-      Router.events.off('routeChangeStart', startLoading);
-      Router.events.off('routeChangeComplete', stopLoading);
-    };
-  });
 
   const fetchData = (pInfo: any) => {
     const path = router.pathname;
@@ -29,12 +19,25 @@ const RemoteDataTable = (props: any) => {
       query,
     });
   };
+  useEffect(() => {
+    if (!router.query.page) {
+      fetchData({ page: 1, rowPerPage: currentRowPerPage });
+    }
+
+    // Router event handler
+    Router.events.on('routeChangeStart', startLoading);
+    Router.events.on('routeChangeComplete', stopLoading);
+    return () => {
+      Router.events.off('routeChangeStart', startLoading);
+      Router.events.off('routeChangeComplete', stopLoading);
+    };
+  });
 
   const handleSort = (column: any, direction: any) => {
     fetchData({
       sortDirection: direction,
       sortColumn: column.sortValue,
-      page: router.query.page,
+      page: 1,
     });
   };
 
@@ -45,15 +48,6 @@ const RemoteDataTable = (props: any) => {
   const handlePageChange = (page: any) => {
     fetchData({ page });
   };
-
-  // const [data, setData] = useState<any>();
-  // useEffect(() => {
-  //   if (!router.query.page) {
-  //     fetchData({ page: router.query.page, rowPerPage: currentRowPerPage });
-  //   } else {
-  //     setData(props.rows);
-  //   }
-  // }, []);
 
   return (
     <DataTable
