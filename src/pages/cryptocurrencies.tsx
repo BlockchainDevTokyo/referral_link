@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { CRYPTOCURRENCY } from '../graphql/cryptocurrency';
+import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { RemoteDataTable } from '../templates/RemoteDataTable';
 import { apolloClient } from '../utils/apollo';
@@ -64,7 +65,7 @@ const Cryptocurrencies = (props: any) => {
   ];
 
   return (
-    <Main meta="Cryptocurencies">
+    <Main meta={<Meta title={t('title')} description={t('description')} />}>
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
