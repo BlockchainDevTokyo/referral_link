@@ -28,7 +28,7 @@ export const getServerSideProps = async (context: any) => {
     props: {
       total: arr.length,
       data: arr.slice(rowPerPage * (page - 1), rowPerPage * page),
-      ...(await serverSideTranslations(context.locale || 'en', [
+      ...(await serverSideTranslations(context.locale, [
         'exchanges',
         'common',
       ])),
