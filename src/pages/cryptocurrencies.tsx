@@ -13,7 +13,7 @@ import { apolloClient } from '../utils/apollo';
 export async function getServerSideProps(context: any) {
   const { page } = context.query;
   const { rowPerPage } = context.query;
-  const sortColumn = context.query.sortColumn || 'id';
+  const sortColumn = context.query.sortColumn || 'market_cap_rank';
   const sortDirection = context.query.sortDirection || 'ASC';
   if (!page) {
     return { props: { errors: 'INPUT_ERROR' } };
@@ -51,10 +51,34 @@ const Cryptocurrencies = (props: any) => {
 
   const columns = [
     {
-      name: t('name'),
-      selector: (row: any) => row.name,
+      name: t('#'),
+      selector: (row: any) => row.market_cap_rank,
       sortable: true,
-      sortValue: 'name',
+      sortValue: 'market_cap_rank',
+    },
+    {
+      selector: (row: any) => (
+        <div className="flex items-center">
+          <div className="flex-shrink-0 h-5 w-5">
+            <img
+              className="h-5 w-5 rounded-full"
+              src={row.image.thumb}
+              alt={row.name}
+            />
+          </div>
+          <div className="ml-4">
+            <div className="text-gray-900">{row.name}</div>
+            <div className="text-gray">{row.symbol}</div>
+          </div>
+        </div>
+      ),
+      name: t('name'),
+    },
+    {
+      name: t('price'),
+      selector: (row: any) => row.market_data.current_price.usd,
+      sortable: false,
+      sortValue: 'price',
     },
     {
       name: t('id'),
