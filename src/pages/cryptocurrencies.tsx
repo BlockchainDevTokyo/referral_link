@@ -81,10 +81,34 @@ const Cryptocurrencies = (props: any) => {
       sortValue: 'price',
     },
     {
-      name: t('id'),
-      selector: (row: any) => row.id,
+      name: t('24h %'),
+      selector: (row: any) => row.market_data.price_change_percentage_24h,
       sortable: true,
-      sortValue: 'id',
+      sortValue: 'price_change_percentage_24h',
+    },
+    {
+      name: t('7d %'),
+      selector: (row: any) => row.market_data.price_change_percentage_7d,
+      sortable: true,
+      sortValue: 'price_change_percentage_7d',
+    },
+    {
+      name: t('Market Cap'),
+      selector: (row: any) => row.market_data.market_cap.usd,
+      sortable: true,
+      sortValue: 'market_cap',
+    },
+    {
+      name: t('Volume(24H)'),
+      selector: (row: any) => row.market_data.total_volume.usd,
+      sortable: true,
+      sortValue: 'total_volume',
+    },
+    {
+      name: t('Circulating Supply'),
+      selector: (row: any) => row.market_data.circulating_supply,
+      sortable: true,
+      sortValue: 'circulating_supply',
     },
   ];
 
