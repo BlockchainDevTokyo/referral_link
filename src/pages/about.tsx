@@ -1,12 +1,21 @@
 import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import 'regenerator-runtime/runtime';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 
-const About = () => {
-  const { t } = useTranslation();
+export const getServerSideProps = async (context: any) => {
+  // console.log(context);
+  const data = {
+    props: {
+      ...(await serverSideTranslations(context.locale, ['about'])),
+    },
+  };
+  return data;
+};
 
+const About = () => {
+  const { t } = useTranslation('about');
   return (
     <Main meta={<Meta title={t('title')} description={t('description')} />}>
       <div>

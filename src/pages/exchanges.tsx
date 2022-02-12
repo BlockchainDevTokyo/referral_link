@@ -37,7 +37,7 @@ export const getServerSideProps = async (context: any) => {
 };
 
 const Exchanges = (props: any) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('exchanges');
   const columns = [
     {
       name: t('Name'),

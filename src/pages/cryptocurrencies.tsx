@@ -33,7 +33,7 @@ export async function getServerSideProps(context: any) {
       total: arr.length,
       data: arr.slice(rowPerPage * (page - 1), rowPerPage * page),
       ...(await serverSideTranslations(context.locale, [
-        'exchanges',
+        'cryptocurrencies',
         'common',
       ])),
     },
@@ -41,7 +41,7 @@ export async function getServerSideProps(context: any) {
 }
 
 const Cryptocurrencies = (props: any) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('cryptocurrencies');
 
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
