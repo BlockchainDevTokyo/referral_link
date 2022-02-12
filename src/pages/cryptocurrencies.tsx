@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useSelector } from 'react-redux';
 
 import { CRYPTOCURRENCY } from '../graphql/cryptocurrency';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
 import { RemoteDataTable } from '../templates/RemoteDataTable';
 import { apolloClient } from '../utils/apollo';
+import { referLink } from '../utils/NearAPI';
 
 // This gets called on every request
 export async function getServerSideProps(context: any) {
@@ -41,6 +43,7 @@ export async function getServerSideProps(context: any) {
 const Cryptocurrencies = (props: any) => {
   const { t } = useTranslation();
 
+  const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const startLoading = () => {
     setLoading(true);
@@ -49,12 +52,21 @@ const Cryptocurrencies = (props: any) => {
     setLoading(false);
   };
 
+  const currentUser = useSelector((state: any) => {
+    return state.account?.payload?.user;
+  });
+
+  const contract = useSelector((state: any) => {
+    return state.account?.contract;
+  });
+
   const columns = [
     {
       name: t('#'),
       selector: (row: any) => row.market_cap_rank,
       sortable: true,
       sortValue: 'market_cap_rank',
+      width: '52px',
     },
     {
       selector: (row: any) => (
@@ -70,9 +82,29 @@ const Cryptocurrencies = (props: any) => {
             <div className="text-gray-900">{row.name}</div>
             <div className="text-gray">{row.symbol}</div>
           </div>
+          <div className="ml-4 text-blue-600 font-bold">
+            {currentUser && (
+              <button
+                className="flex items-center justify-center px-2 py-1 border border-transparent text-base font-small rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                // className="nowrap text-liblue"
+                onClick={async () => {
+                  setDisabled(true);
+                  await referLink(contract, currentUser, 'test.net', 1);
+                  // const b = await getBalance(wallet);
+                  // setBalance(b);
+
+                  setDisabled(false);
+                }}
+                disabled={disabled}
+              >
+                Buy
+              </button>
+            )}
+          </div>
         </div>
       ),
       name: t('name'),
+      width: '200px',
     },
     {
       name: t('price'),

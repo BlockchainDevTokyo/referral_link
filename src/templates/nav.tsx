@@ -4,10 +4,13 @@ import { Fragment, useEffect, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
 
+import { disconnect, connect, init } from '../redux/actions/nearAccountActions';
 import 'regenerator-runtime/runtime';
+import { initContract, signIn } from '../utils/NearAPI';
 
-import { initContract, signIn, signOut } from '../utils/NearAPI';
+// import { initContract, signIn, signOut } from '../utils/NearAPI';
 
 const navigation = [
   { name: 'Cryptocurrencies', href: '/cryptocurrencies' },
@@ -17,14 +20,18 @@ const navigation = [
 ];
 
 export default function Nav() {
+  const dispatch = useDispatch();
+
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [wallet, setWallet] = useState<any>(null);
   const [nearConfig, setNearConfig] = useState<any>(null);
   useEffect(() => {
     async function fetchData() {
       const data = await initContract();
+      dispatch(init(data.contract));
       // setContract(data.contract);
       setCurrentUser(data.currentUser);
+      dispatch(connect(data.currentUser));
       setNearConfig(data.nearConfig);
       setWallet(data.walletConnection);
       // if (data.currentUser) {
@@ -80,7 +87,9 @@ export default function Nav() {
             className="font-medium text-indigo-600 hover:text-indigo-500 text-left"
           >
             {currentUser ? (
-              <button onClick={() => signOut(wallet)}>Disconnect</button>
+              <button onClick={() => dispatch(disconnect(wallet))}>
+                Disconnect
+              </button>
             ) : (
               <button onClick={() => signIn(wallet, nearConfig)}>
                 Connect Wallet
