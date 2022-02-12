@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 
 import { disconnect, connect, init } from '../redux/actions/nearAccountActions';
 import 'regenerator-runtime/runtime';
-import { initContract, signIn } from '../utils/NearAPI';
+import { getBalance, initContract, signIn } from '../utils/NearAPI';
 
 // import { initContract, signIn, signOut } from '../utils/NearAPI';
 
@@ -24,6 +24,7 @@ export default function Nav() {
 
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [wallet, setWallet] = useState<any>(null);
+  const [balance, setBalance] = useState<any>(null);
   const [nearConfig, setNearConfig] = useState<any>(null);
   useEffect(() => {
     async function fetchData() {
@@ -34,13 +35,10 @@ export default function Nav() {
       dispatch(connect(data.currentUser));
       setNearConfig(data.nearConfig);
       setWallet(data.walletConnection);
-      // if (data.currentUser) {
-      //   const b = await getBalance(data.walletConnection);
-      //   setBalance(b);
-      //   setDisabled(false);
-      // } else {
-      //   setDisabled(true);
-      // }
+      if (data.currentUser) {
+        const b = await getBalance(data.walletConnection);
+        setBalance(b);
+      }
     }
     fetchData();
   }, []);
@@ -81,6 +79,9 @@ export default function Nav() {
                 {item.name}
               </a>
             ))}
+          </div>
+          <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
+            {currentUser && `${currentUser.accountId}: ${balance}`}
           </div>
           <div
             id="connect-wallet"
