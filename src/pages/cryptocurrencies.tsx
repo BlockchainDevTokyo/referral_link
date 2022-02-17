@@ -10,6 +10,7 @@ import { Main } from '../templates/Main';
 import { RemoteDataTable } from '../templates/RemoteDataTable';
 import { apolloClient } from '../utils/apollo';
 import { referLink } from '../utils/NearAPI';
+import { useRouter } from 'next/router';
 
 // This gets called on every request
 export async function getServerSideProps(context: any) {
@@ -41,6 +42,7 @@ export async function getServerSideProps(context: any) {
 }
 
 const Cryptocurrencies = (props: any) => {
+  const router = useRouter();
   const { t } = useTranslation('cryptocurrencies');
 
   const [disabled, setDisabled] = useState(false);
@@ -78,7 +80,12 @@ const Cryptocurrencies = (props: any) => {
               alt={row.name}
             />
           </div>
-          <div className="ml-4">
+          <div className='ml-4 hover:underline hover:cursor-pointer' onClick={() => {
+            router.push({
+              pathname: '/cryptocurrencies/[cid]',
+              query: { cid: row.id }
+            });
+          }}>
             <div className="text-gray-900">{row.name}</div>
             <div className="text-gray">{row.symbol}</div>
           </div>
