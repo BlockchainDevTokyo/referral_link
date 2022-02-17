@@ -36,9 +36,11 @@ export const getServerSideProps = async (context: any) => {
   };
 };
 
-const Exchange = (cryptocurrency: any) => {
+const Exchange = (props: any) => {
   // const router = useRouter();
+  // console.log(cryptocurrency);
   const { t } = useTranslation('exchanges');
+  const { cryptocurrency } = props;
   return (
     <Main meta={<Meta title={t('title')} description={t('description')} />}>
       <header className="flex flex-wrap pt-10">
