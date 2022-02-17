@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+
 import { EXCHANGES } from '../graphql/exchange';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
@@ -43,12 +44,16 @@ const Exchanges = (props: any) => {
     {
       name: t('Name'),
       selector: (row: any) => (
-        <button onClick={() => {
-          router.push({
-            pathname: '/exchanges/[id]',
-            query: { id: row.id },
-          })
-        }}>{row.name}</button>
+        <button
+          onClick={() => {
+            router.push({
+              pathname: '/exchanges/[id]',
+              query: { id: row.id },
+            });
+          }}
+        >
+          {row.name}
+        </button>
       ),
       sortable: true,
       sortValue: 'name',

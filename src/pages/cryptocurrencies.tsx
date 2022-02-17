@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
 import { CRYPTOCURRENCY } from '../graphql/cryptocurrency';
@@ -10,7 +11,6 @@ import { Main } from '../templates/Main';
 import { RemoteDataTable } from '../templates/RemoteDataTable';
 import { apolloClient } from '../utils/apollo';
 import { referLink } from '../utils/NearAPI';
-import { useRouter } from 'next/router';
 
 // This gets called on every request
 export async function getServerSideProps(context: any) {
@@ -80,12 +80,15 @@ const Cryptocurrencies = (props: any) => {
               alt={row.name}
             />
           </div>
-          <div className='ml-4 hover:underline hover:cursor-pointer' onClick={() => {
-            router.push({
-              pathname: '/cryptocurrencies/[cid]',
-              query: { cid: row.id }
-            });
-          }}>
+          <div
+            className="ml-4 hover:underline hover:cursor-pointer"
+            onClick={() => {
+              router.push({
+                pathname: '/cryptocurrencies/[cid]',
+                query: { cid: row.id },
+              });
+            }}
+          >
             <div className="text-gray-900">{row.name}</div>
             <div className="text-gray">{row.symbol}</div>
           </div>
