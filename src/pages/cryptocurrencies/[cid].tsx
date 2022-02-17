@@ -48,7 +48,7 @@ const Cryptocurrency = (props: any) => {
           <div className="flex items-center my-5">
             <img
               className="ml-5 h-11 w-auto"
-              src={cryptocurrency.image.large}
+              src={cryptocurrency?.image?.large}
               alt=""
             ></img>
             <h1 className="text-5xl leading-none font-semibold ml-2">
