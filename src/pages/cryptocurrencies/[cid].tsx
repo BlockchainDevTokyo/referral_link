@@ -36,7 +36,7 @@ export const getServerSideProps = async (context: any) => {
   };
 };
 
-const Exchange = (props: any) => {
+const Cryptocurrency = (props: any) => {
   // const router = useRouter();
   // console.log(cryptocurrency);
   const { t } = useTranslation('exchanges');
@@ -116,4 +116,4 @@ const Exchange = (props: any) => {
   );
 };
 
-export default Exchange;
+export default Cryptocurrency;
