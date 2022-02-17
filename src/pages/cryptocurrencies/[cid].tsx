@@ -1,12 +1,12 @@
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+import { Arrow } from '../../components/icon';
+import { Stat } from '../../components/stat';
 import { CRYPTOCURRENCY_BY_CID } from '../../graphql/cryptocurrency';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
 import { apolloClient } from '../../utils/apollo';
-import { Arrow } from './components/icon';
-import { Stat } from './components/stat';
 
 export const getServerSideProps = async (context: any) => {
   // const { page } = context.query;
