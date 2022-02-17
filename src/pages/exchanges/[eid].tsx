@@ -37,9 +37,10 @@ export const getServerSideProps = async (context: any) => {
   };
 };
 
-const Exchange = (exchange: any) => {
+const Exchange = (props: any) => {
   // const router = useRouter();
   const { t } = useTranslation('exchanges');
+  const { exchange } = props;
   const columns = [
     {
       name: t('#'),
