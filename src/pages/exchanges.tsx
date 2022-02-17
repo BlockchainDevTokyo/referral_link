@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
+import { useRouter } from 'next/router'
 import { EXCHANGES } from '../graphql/exchange';
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
@@ -37,11 +37,19 @@ export const getServerSideProps = async (context: any) => {
 };
 
 const Exchanges = (props: any) => {
+  const router = useRouter();
   const { t } = useTranslation('exchanges');
   const columns = [
     {
       name: t('Name'),
-      selector: (row: any) => row.name,
+      selector: (row: any) => (
+        <button onClick={() => {
+          router.push({
+            pathname: '/exchanges/[id]',
+            query: { id: row.id },
+          })
+        }}>{row.name}</button>
+      ),
       sortable: true,
       sortValue: 'name',
     },
