@@ -1,4 +1,4 @@
-const InfoMark = (width: any, height: any) => {
+const InfoMark = ({ width, height }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

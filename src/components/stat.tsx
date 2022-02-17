@@ -1,7 +1,7 @@
 import { InfoMark, Arrow } from './icon';
 
-const Stat = (cryptocurrency: any) => {
-  // console.log(cryptocurrency);
+const Stat = ({ cryptocurrency }) => {
+  console.log(cryptocurrency);
   // const { t } = useTranslation('exchanges');
   return (
     <div className="flex w-full mx-5 text-sm bg-gray-100 p-5 mt-5">
