@@ -3,6 +3,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 const { i18n } = require('./next-i18next.config');
+const { eslint } = require('./next-eslint.config');
 
 module.exports = withBundleAnalyzer({
   poweredByHeader: false,
@@ -14,4 +15,5 @@ module.exports = withBundleAnalyzer({
   reactStrictMode: true,
 
   i18n,
+  eslint,
 });
