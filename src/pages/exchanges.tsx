@@ -11,8 +11,9 @@ import { apolloClient } from '../utils/apollo';
 export const getServerSideProps = async (context: any) => {
   const { page } = context.query;
   const { rowPerPage } = context.query;
-  const sortColumn = context.query.sortColumn || 'id';
-  const sortDirection = context.query.sortDirection || 'ASC';
+  const sortColumn =
+    context.query.sortColumn || 'trade_volume_24h_btc_normalized';
+  const sortDirection = context.query.sortDirection || 'DESC';
 
   if (!page) {
     return { props: { errors: 'INPUT_ERROR' } };

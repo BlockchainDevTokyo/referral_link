@@ -3,11 +3,13 @@ import React from 'react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import DataTable from 'react-data-table-component';
+import { useSelector } from 'react-redux';
 
 import { EXCHANGE_BY_EID } from '../../graphql/exchange';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
 import { apolloClient } from '../../utils/apollo';
+import { referLink } from '../../utils/NearAPI';
 
 export const getServerSideProps = async (context: any) => {
   // const { page } = context.query;
@@ -41,6 +43,14 @@ const Exchange = (props: any) => {
   // const router = useRouter();
   const { t } = useTranslation('exchanges');
   const { exchange } = props;
+
+  const currentUser = useSelector((state: any) => {
+    return state.account?.payload?.user;
+  });
+
+  const contract = useSelector((state: any) => {
+    return state.account?.contract;
+  });
   const columns = [
     {
       name: t('#'),
@@ -115,6 +125,16 @@ const Exchange = (props: any) => {
                     className="px-3 py-2 flex flex-wrap items-center justify-center shadow-lg rounded uppercase font-bold text-sm no-underline bg-pink-300 text-pink-900 hover:bg-pink-400 transition btn-referral mt-2 md:mt-0"
                     rel="nofollow noopener noreferrer"
                     target="_blank"
+                    onClick={async () => {
+                      if (!currentUser) {
+                        return;
+                      }
+                      // setDisabled(true);
+                      await referLink(contract, currentUser, 'test.net', 1);
+                      // const b = await getBalance(wallet);
+                      // setBalance(b);
+                      // setDisabled(false);
+                    }}
                   >
                     Go to {exchange.name}
                     <div className="w-full text-xs text-center text-gray-700">
