@@ -1,64 +1,46 @@
-# Boilerplate and Starter for Next JS 12+, Tailwind CSS 3 and TypeScript [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40Ixartz)](https://twitter.com/ixartz)
+# CoinMarketFi [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40nate0922)](https://twitter.com/nate0922)
 
 <p align="center">
   <a href="https://creativedesignsguru.com/demo/Nextjs-Boilerplate/"><img src="public/assets/images/nextjs-starter-banner.png?raw=true" alt="Next js starter banner"></a>
 </p>
 
-🚀 Boilerplate and Starter for Next.js, Tailwind CSS and TypeScript ⚡️ Made with developer experience first: Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged, VSCode, Netlify, PostCSS, Tailwind CSS.
+We want to make it easier for you to buy cryptocurrency — including Bitcoin and Ethereum — no matter where you live in the world! Learn from us as we walk you through some of the topics that beginners will need to understand to get started. Check out this Cryptocurrency Exchange List with more cryptocurrency exchanges and brokers than any other list in the world, including information on fees, deposit methods, supported cryptocurrencies and much more.
 
-Clone this project and use it to create your own [Next.js](https://nextjs.org) project. You can check a [Next js templates demo](https://creativedesignsguru.com/demo/Nextjs-Boilerplate/).
+## Features
 
-### Features
+### Cryptocurrencies
+  - 🔥 User can check price, marketcap, volumne of crytocurrencies.
+  - 🎨 User can buy crytocurrencies by referial link and get bonus coin by NEAR token.
 
-Developer experience first:
+### Exchanges
+ - 💅 List information of Exchanges : Headquaters, Trade Volume 24h
 
-- 🔥 [Next.js](https://nextjs.org) for Static Site Generator
-- 🎨 Integrate with [Tailwind CSS](https://tailwindcss.com) (w/ JIT mode)
-- 💅 PostCSS for processing Tailwind CSS and integrated to `styled-jsx`
-- 🎉 Type checking [TypeScript](https://www.typescriptlang.org)
-- ✅ Strict Mode for TypeScript and React 17
-- ✏️ Linter with [ESLint](https://eslint.org) (default NextJS, NextJS Core Web Vitals and Airbnb configuration)
-- 🛠 Code Formatter with [Prettier](https://prettier.io)
-- 🦊 Husky for Git Hooks
-- 🚫 Lint-staged for running linters on Git staged files
-- 🗂 VSCode configuration: Debug, Settings, Tasks and extension for PostCSS, ESLint, Prettier, TypeScript
-- 🤖 SEO metadata, JSON-LD and Open Graph tags with Next SEO
-- ⚙️ [Bundler Analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
-- 🖱️ One click deployment with Vercel or Netlify (or manual deployment to any hosting services)
-- 🌈 Include a FREE minimalist theme
-- 💯 Maximize lighthouse score
+### Marketplace - Next Step
+ - TODO
 
-Built-in feature from Next.js:
+### Referal Social Network (Facebook/Twitter/Youtube) - Next Step
+ - 🎉 User can like/share post to receive Near token bonus
+ - ✅ User can retweet to receive Near token bonus
+ - ✏️ User can watch youtube video to receive Near token bonus
 
-- ☕ Minify HTML & CSS
-- 💨 Live reload
-- ✅ Cache busting
+## Philosophy
 
-### Philosophy
+- TBD
+- TBD
 
-- Minimal code
-- SEO-friendly
-- 🚀 Production-ready
+## Screenshots
 
-### Nextless.js SaaS Boilerplate
+### Cryptocurrencies
+![Alt text](./res/img/cryptocurrencies.jpg)
 
-Building your SaaS product faster with [Nextless JS SaaS Boilerplate](https://nextlessjs.com).
+### Exchanges
+![Alt text](./res/img/exchanges.jpg)
 
-[![Nextless React SaaS Boilerplate](https://nextlessjs.com/assets/images/hero-image.png)](https://nextlessjs.com)
+### Marketplace
+![Alt text](./res/img/marketplace.jpg)
 
-### Premium Themes
 
-| [Green Nextjs Landing Page Template](https://creativedesignsguru.com/landing-green-modern-nextjs-theme/) | [Purple Saas Nextjs Theme](https://creativedesignsguru.com/landing-purple-modern-react-theme/) |
-| --- | --- |
-| [![Green Nextjs Landing Page Template](https://creativedesignsguru.com/assets/images/themes/landing-green-modern-nextjs-theme-xs.png)](https://creativedesignsguru.com/landing-green-modern-nextjs-theme/) | [![Blue Landing Page Nextjs Theme](https://creativedesignsguru.com/assets/images/themes/landing-blue-modern-nextjs-theme-xs.png)](https://creativedesignsguru.com/landing-blue-modern-react-theme/) |
-
-Find more [Nextjs Themes](https://creativedesignsguru.com/category/nextjs/).
-
-### Requirements
-
-- Node.js and npm
-
-### Getting started
+## Overrall Settings
 
 Run the following command on your local environment:
 
@@ -102,55 +84,23 @@ You can easily configure Next js Boilerplate. Please change the following file:
 - `src/utils/AppConfig.ts`: configuration file
 - `src/templates/Main.tsx`: default theme
 
-### Deploy to production
+## Sequence Diagrams
+You had deployed coinmarketfi smart contract to Near blockchain for Near wallet of coinmarketfi (as master wallet).
+When user load my website, we will connet to Near service with master wallet keystore config.
+Users need connect theirs wallet to we can send Near token bonus when they get token bonus from website.
 
-You can see the results locally in production mode with:
+![Alt text](./res/img/SqLoadPage_ConnectWallet.jpg)
 
-```
-$ npm run build
-$ npm run start
-```
 
-The generated HTML and CSS files are minified (built-in feature from Next js). It will also removed unused CSS from [Tailwind CSS](https://tailwindcss.com).
+Currently, when user refer link to buy crytocurrencies, we will send some Near token to user as token bonus
+![Alt text](./res/img/ReferLink_CurrentVer.jpg)
 
-You can create an optimized production build with:
 
-```
-npm run build-prod
-```
-
-Now, your blog is ready to be deployed. All generated files are located at `out` folder, which you can deploy with any hosting service.
-
-### Deploy to Netlify
-
-Clone this repository on own GitHub account and deploy to Netlify:
-
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ixartz/Next-js-Boilerplate)
-
-### Deploy to Vercel
-
-Deploy this Next JS Boilerplate on Vercel in one click:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fixartz%2FNext-js-Boilerplate)
-
-### VSCode information (optional)
-
-If you are VSCode users, you can have a better integration with VSCode by installing the suggested extension in `.vscode/extension.json`. The starter code comes up with Settings for a seamless integration with VSCode. The Debug configuration is also provided for frontend and backend debugging experience.
-
-Pro tips: if you need a project wide type checking with TypeScript, you can run a build with <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> on Mac.
-
-### Contributions
-
-Everyone is welcome to contribute to this project. Feel free to open an issue if you have question or found a bug.
+In next step, we will check to map user with 3rd party site (Exchanges when buy crytocurrencies, Facebook, Twitter, Youtube,...). When we receive token bonus from 3rd party site, we will convert it to near token and send about 60%~70% to user as token bonus.
+![Alt text](./res/img/ReferlinkContract.jpg)
 
 ### License
 
 Licensed under the MIT License, Copyright © 2020
 
 See [LICENSE](LICENSE) for more information.
-
----
-
-Made with ♥ by [CreativeDesignsGuru](https://creativedesignsguru.com) [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40Ixartz)](https://twitter.com/ixartz)
-
-[![Sponsor Next JS Boilerplate](https://cdn.buymeacoffee.com/buttons/default-red.png)](https://www.buymeacoffee.com/ixartz)
