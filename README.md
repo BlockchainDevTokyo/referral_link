@@ -98,6 +98,8 @@ In next step, we will check to map user with 3rd party site (Exchanges when buy 
 
 ### License
 
-Licensed under the MIT License, Copyright © 2020
+Licensed under the MIT License, Copyright © 2022
 
 See [LICENSE](LICENSE) for more information.
+
+Boilerplate [Next-js-Boilerplate](https://github.com/ixartz/Next-js-Boilerplate)
